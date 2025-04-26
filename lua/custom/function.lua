@@ -3,7 +3,13 @@ vim.api.nvim_create_user_command('CreateCompileFlags', function()
   local file = io.open('compile_flags.txt', 'w')
   if file then
     file:write("-I../c_modules/include\n")
-    file:write("-I../c_modules/libs\n")
+    file:write("-i../c_modules/libs\n")
+    file:write("-IC:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include\n")
+    file:write("-IC:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed\n")
+    file:write("-IC:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include\n")
+    file:write("-ic:/programdata/mingw64/mingw64/include\n")
+    file:write("-target\n")
+    file:write("x86_64-pc-windows-gnu\n")
     file:write("-std=c11\n")
     file:write("-Wall\n")
     file:write("-Wextra\n")
@@ -39,10 +45,6 @@ end, {})
 
 
 vim.api.nvim_create_user_command('CreateFolders', function()
-  local inlude_path = "include"
-  vim.uv.fs_mkdir(inlude_path, 493)
-  local libs_path = "libs"
-  vim.uv.fs_mkdir(libs_path, 493)
   local src_path = "src"
   vim.uv.fs_mkdir(src_path, 493)
   local build_path = "build"
@@ -56,6 +58,12 @@ vim.api.nvim_create_user_command('CreateCProject', function()
   if file_CC then
     file_CC:write("-I../c_modules/include\n")
     file_CC:write("-I../c_modules/libs\n")
+    file_CC:write("-IC:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include\n")
+    file_CC:write("-IC:/ProgramData/mingw64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed\n")
+    file_CC:write("-IC:/ProgramData/mingw64/mingw64/x86_64-w64-mingw32/include\n")
+    file_CC:write("-ic:/programdata/mingw64/mingw64/include\n")
+    file_CC:write("-target\n")
+    file_CC:write("x86_64-pc-windows-gnu\n")
     file_CC:write("-std=c11\n")
     file_CC:write("-Wall\n")
     file_CC:write("-Wextra\n")
@@ -85,14 +93,17 @@ vim.api.nvim_create_user_command('CreateCProject', function()
     print("Failed to create Makefile")
   end
 
-  local inlude_path = "include"
-  vim.uv.fs_mkdir(inlude_path, 493)
-  local libs_path = "libs"
-  vim.uv.fs_mkdir(libs_path, 493)
   local src_path = "src"
   vim.uv.fs_mkdir(src_path, 493)
   local build_path = "build"
   vim.uv.fs_mkdir(build_path, 493)
   print("Folders created successfully!")
 
+end, {})
+
+
+
+
+vim.api.nvim_create_user_command('Crun', function()
+  vim.cmd('!make run')
 end, {})

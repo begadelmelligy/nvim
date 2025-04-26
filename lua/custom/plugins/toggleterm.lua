@@ -15,6 +15,10 @@ return {
             shade_terminals = true,
             shading_factor = 2,
             direction = "float", -- This makes it a floating terminal
+            float_opts={
+                    width = 80,
+                    height=30,
+                },
             close_on_exit = true,
             persist_mode = true, -- Keeps session open
             shell = "PowerShell", -- Change to "powershell" if using older Windows PowerShell
