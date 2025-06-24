@@ -45,11 +45,17 @@ require('lazy').setup({
 
   require 'custom/plugins/moonify',
 
+  require 'custom/plugins/onedark',
+
   require 'custom/plugins/toggleterm',
 
   require 'custom/plugins/dap',
 
   require 'custom/plugins/clang_format',
+
+  require 'custom/plugins/vim-surround',
+
+  require 'custom/plugins/visual-multi',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
