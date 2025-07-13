@@ -47,8 +47,6 @@ require('lazy').setup({
 
   require 'custom/plugins/onedark',
 
-  require 'custom/plugins/toggleterm',
-
   require 'custom/plugins/dap',
 
   require 'custom/plugins/clang_format',
