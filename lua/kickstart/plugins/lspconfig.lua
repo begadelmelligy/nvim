@@ -1,3 +1,5 @@
+-- kickstart/plugins/lspconfig.lua
+
 return {
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -11,23 +13,25 @@ return {
       },
     },
   },
+
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', opts = {} },
-      { 'williamboman/mason-lspconfig.nvim', version = '1.27.0' }, -- Pin to a stable version to avoid breaking changes
+      { 'williamboman/mason-lspconfig.nvim' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
     },
+
     config = function()
-      --  This function gets run when an LSP attaches to a particular buffer.
+      ------------------------------------------------------------------------
+      -- LspAttach: keymaps & buffer-local behavior
+      ------------------------------------------------------------------------
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -43,6 +47,7 @@ return {
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
           map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
           map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -51,16 +56,19 @@ return {
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
             })
+
             vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.clear_references,
             })
+
             vim.api.nvim_create_autocmd('LspDetach', {
               group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
               callback = function(event2)
@@ -79,7 +87,9 @@ return {
         end,
       })
 
-      -- Diagnostic Config
+      ------------------------------------------------------------------------
+      -- Diagnostics
+      ------------------------------------------------------------------------
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
@@ -107,49 +117,71 @@ return {
         },
       }
 
-      -- Enhance LSP capabilities with nvim-cmp
+      ------------------------------------------------------------------------
+      -- Capabilities (nvim-cmp)
+      ------------------------------------------------------------------------
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities = vim.tbl_deep_extend(
+        'force',
+        capabilities,
+        require('cmp_nvim_lsp').default_capabilities()
+      )
 
-      -- Define LSP servers
-      local servers = {
-        clangd = {
-          cmd = {
-            vim.fn.stdpath("data") .. "/mason/bin/clangd",
-            "--query-driver=/usr/bin/g++", -- Adjust this path to your g++ compiler if needed
-          },
+      ------------------------------------------------------------------------
+      -- LSP server configs via vim.lsp.config (no require('lspconfig'))
+      ------------------------------------------------------------------------
+      -- clangd
+      vim.lsp.config('clangd', {
+        cmd = {
+          vim.fn.stdpath("data") .. "/mason/bin/clangd",
+          "--query-driver=/usr/bin/g++", -- Adjust this path if needed
         },
-        pyright = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
+        capabilities = capabilities,
+      })
+
+      -- pyright
+      vim.lsp.config('pyright', {
+        capabilities = capabilities,
+      })
+
+      -- lua_ls (for Lua / Neovim config)
+      vim.lsp.config('lua_ls', {
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
             },
           },
         },
-      }
+      })
 
-      -- Ensure servers and tools are installed
-      local ensure_installed = vim.tbl_keys(servers or {})
+      ------------------------------------------------------------------------
+      -- Mason / tools installation
+      ------------------------------------------------------------------------
+      local servers = { 'clangd', 'pyright', 'lua_ls'}
+
+      local ensure_installed = vim.deepcopy(servers)
       vim.list_extend(ensure_installed, {
         'stylua', -- For Lua formatting
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      -- Setup mason-lspconfig with explicit handlers to avoid automatic_enable issues
+      -- -- Install tools
+      -- require('mason-tool-installer').setup {
+      --   ensure_installed = ensure_installed,
+      -- }
+
+      -- Install LSP servers (mason)
       require('mason-lspconfig').setup {
-        ensure_installed = vim.tbl_keys(servers), -- Install servers defined above
-        automatic_installation = false, -- Let mason-tool-installer handle installations
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        ensure_installed = servers,
+        automatic_installation = false,
       }
+
+      ------------------------------------------------------------------------
+      -- Enable all configured servers
+      ------------------------------------------------------------------------
+      vim.lsp.enable(servers)
+      vim.lsp.enable('gdscript')
     end,
   },
 }
