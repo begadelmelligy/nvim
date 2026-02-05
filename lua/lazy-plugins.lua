@@ -37,17 +37,11 @@ require('lazy').setup({
 
   require 'kickstart/plugins/cmp',
 
-  require 'kickstart/plugins/tokyonight',
-
   require 'kickstart/plugins/todo-comments',
 
   require 'kickstart/plugins/mini',
 
   require 'kickstart/plugins/treesitter',
-
-  require 'custom/plugins/moonify',
-
-  require 'custom/plugins/onedark',
 
   require 'custom/plugins/dap',
 
@@ -59,9 +53,14 @@ require('lazy').setup({
 
   require 'custom/plugins/coderunner',
 
-  require 'custom/plugins/cyberdream',
-
   require 'custom/plugins/filetypes',
+
+  --THEMES
+  -- require 'kickstart/plugins/tokyonight',
+  -- require 'custom/plugins/cyberdream',
+  -- require 'custom/plugins/moonify',
+  -- require 'custom/plugins/onedark',
+  require 'custom/plugins/rose-pin',
 
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
