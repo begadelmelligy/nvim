@@ -61,6 +61,10 @@ require('lazy').setup({
   -- require 'custom/plugins/moonify',
   -- require 'custom/plugins/onedark',
   require 'custom/plugins/rose-pin',
+  -- require 'custom/plugins/kanagawa_wave',
+
+  --Home Brew
+  require 'custom/home_brew/gd_resource_browser',
 
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
