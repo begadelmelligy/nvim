@@ -65,6 +65,7 @@ require('lazy').setup({
 
   --Home Brew
   require 'custom/home_brew/gd_resource_browser',
+  require 'custom/home_brew/gd_signals',
 
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the

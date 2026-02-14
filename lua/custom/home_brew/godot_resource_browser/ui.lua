@@ -1,4 +1,5 @@
 -- lua/custom/home_brew/godot_resource_browser/ui.lua
+
 local M = {}
 
 local function render_properties(properties, depth)

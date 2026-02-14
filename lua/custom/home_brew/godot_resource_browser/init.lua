@@ -8,17 +8,17 @@ function M.show_resource_info()
     local file = vim.api.nvim_buf_get_name(0)
 
     -- Check if file is a .tres file
-    if not file:match("%.tres$") then
-        vim.notify("Not a .tres file: " .. file, vim.log.levels.WARN)
-        return
-    end
+    -- if not file:match("%.tres$") then
+    --     vim.notify("Not a .tres file: " .. file, vim.log.levels.WARN)
+    --     return
+    -- end
 
     local resource = parser.parse_resource(file)
 
-    if not resource then
-        vim.notify("Failed to parse resource file", vim.log.levels.ERROR)
-        return
-    end
+    -- if not resource then
+    --     vim.notify("Failed to parse resource file", vim.log.levels.ERROR)
+    --     return
+    -- end
 
     ui.render(resource)
 end
@@ -71,17 +71,7 @@ function M.setup(opts)
         noremap = true,
         silent = true,
     })
-
-    -- Alternative global keymap
-    vim.keymap.set("n", "<Space>gf", function()
-        M.show_project_resources()
-    end, {
-        desc = "Find Godot Resources",
-        noremap = true,
-        silent = true,
-    })
-
-    vim.notify("Godot Resource Browser loaded! <Space>gr = info, <Space>gp = project browser", vim.log.levels.INFO)
+    --     vim.notify("Godot Resource Browser loaded! <Space>gr = info, <Space>gp = project browser", vim.log.levels.INFO)
 end
 
 return M
