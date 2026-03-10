@@ -29,7 +29,7 @@ function M.render(resource)
     end
 
     -- Open a vertical split
-    vim.cmd("vsplit")
+    vim.cmd("split")
     vim.cmd("enew")
 
     local buf = vim.api.nvim_get_current_buf()

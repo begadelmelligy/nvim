@@ -92,7 +92,7 @@ function M.render_project_browser()
     end)
 
     -- Open a new split
-    vim.cmd("vsplit")
+    vim.cmd("split")
     vim.cmd("enew")
 
     local buf = vim.api.nvim_get_current_buf()
