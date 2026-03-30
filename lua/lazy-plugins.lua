@@ -55,6 +55,8 @@ require('lazy').setup({
 
   require 'custom/plugins/codex',
 
+  require 'custom/plugins/csvview',
+
   --THEMES
   -- require 'kickstart/plugins/tokyonight',
   -- require 'custom/plugins/cyberdream',
