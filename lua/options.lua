@@ -72,4 +72,7 @@ vim.opt.wildmenu = true
 vim.opt.wildmode = 'longest:full,full'
 vim.opt.wildoptions = 'pum'
 
+vim.opt.lazyredraw = true
+vim.opt.updatetime = 300
+
 -- vim: ts=2 sts=2 sw=2 et
