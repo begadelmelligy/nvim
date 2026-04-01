@@ -75,4 +75,6 @@ vim.opt.wildoptions = 'pum'
 vim.opt.lazyredraw = true
 vim.opt.updatetime = 300
 
+-- Added comment for testing
+
 -- vim: ts=2 sts=2 sw=2 et
