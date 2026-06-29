@@ -66,8 +66,15 @@ vim.opt.scrolloff = 10
 -- Tab configuration
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
 
+-- Command Line Auto Complete
+vim.opt.wildmenu = true
+vim.opt.wildmode = 'longest:full,full'
+vim.opt.wildoptions = 'pum'
 
+vim.opt.lazyredraw = true
+vim.opt.updatetime = 300
+
+-- Added comment for testing
 
 -- vim: ts=2 sts=2 sw=2 et
