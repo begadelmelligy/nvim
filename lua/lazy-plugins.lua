@@ -57,6 +57,8 @@ require('lazy').setup({
 
   require 'custom/plugins/csvview',
 
+  require 'custom/plugins/markdown_formatter',
+
   --THEMES
   -- require 'kickstart/plugins/tokyonight',
   -- require 'custom/plugins/cyberdream',
