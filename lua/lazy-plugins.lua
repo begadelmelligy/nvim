@@ -55,7 +55,7 @@ require('lazy').setup({
 
   require 'custom/plugins/codex',
 
-  require 'custom/plugins/csvview',
+  require 'custom/plugins/formatter',
 
   require 'custom/plugins/markdown_formatter',
 
