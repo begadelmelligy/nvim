@@ -23,41 +23,42 @@ require('lazy').setup({
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
 
+  -- Random
   require 'kickstart/plugins/mason',
-
   require 'kickstart/plugins/which-key',
-
   require 'kickstart/plugins/telescope',
-
-  require 'kickstart/plugins/lspconfig',
-
-  require 'kickstart/plugins/conform',
-
   require 'kickstart/plugins/cmp',
-
   require 'kickstart/plugins/todo-comments',
-
-  require 'kickstart/plugins/mini',
-
   require 'kickstart/plugins/treesitter',
-
-  require 'custom/plugins/dap',
-
-  require 'custom/plugins/clang_format',
-
-  require 'custom/plugins/vim-surround',
-
-  require 'custom/plugins/visual-multi',
-
   require 'custom/plugins/coderunner',
-
   require 'custom/plugins/filetypes',
 
+  -- Visual
+  require 'kickstart/plugins/mini',
+  require 'custom/plugins/vim-surround',
+  require 'custom/plugins/visual-multi',
+
+  -- LSP
+  require 'kickstart/plugins/lspconfig',
+  require 'custom/plugins/esp32',
+
+  -- Debugger
+  require 'custom/plugins/dap',
+
+  -- Formatters
+  require 'custom/plugins/clang_format',
+  require 'kickstart/plugins/conform',
+  require 'custom/plugins/markdown_formatter',
+
+  -- AI
   require 'custom/plugins/codex',
 
-  require 'custom/plugins/formatter',
+  --Home Brew
+  require 'custom/home_brew/gd_resource_browser',
+  require 'custom/home_brew/gd_signals',
 
-  require 'custom/plugins/markdown_formatter',
+
+
 
   --THEMES
   -- require 'kickstart/plugins/tokyonight',
@@ -67,9 +68,6 @@ require('lazy').setup({
   require 'custom/plugins/rose-pin',
   -- require 'custom/plugins/kanagawa_wave',
 
-  --Home Brew
-  require 'custom/home_brew/gd_resource_browser',
-  require 'custom/home_brew/gd_signals',
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
