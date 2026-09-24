@@ -1,6 +1,11 @@
 return
 {
     "scottmckendry/cyberdream.nvim",
-    lazy = false,
-    priority = 1000,
+    name = "cyberdream",
+    config = function()
+        vim.cmd("colorscheme cyberdream")
+
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    end,
 }

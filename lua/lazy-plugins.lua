@@ -32,6 +32,7 @@ require('lazy').setup({
   require 'kickstart/plugins/treesitter',
   require 'custom/plugins/coderunner',
   require 'custom/plugins/filetypes',
+  require 'custom/plugins/jupyter',
 
   -- Visual
   require 'kickstart/plugins/mini',
@@ -66,7 +67,6 @@ require('lazy').setup({
   -- require 'custom/plugins/moonify',
   -- require 'custom/plugins/onedark',
   require 'custom/plugins/rose-pin',
-  -- require 'custom/plugins/kanagawa_wave',
 
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
